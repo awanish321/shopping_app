@@ -91,38 +91,6 @@ class _AllProductsState extends State<AllProducts> {
                       height: 140,
                     ),
                   ),
-                  Positioned(
-                    top: 5.0,
-                    right: 0,
-                    child: Container(
-                      decoration: BoxDecoration(
-                        shape: BoxShape.circle,
-                        color: Colors.white,
-                        boxShadow: [
-                          BoxShadow(
-                            color: Colors.grey.withOpacity(0.5),
-                            spreadRadius: 2,
-                            blurRadius: 5,
-                            offset: const Offset(0, 2),
-                          ),
-                        ],
-                      ),
-                      child: IconButton(
-                        icon: Icon(
-                          _isFavorite
-                              ? Icons.favorite
-                              : Icons.favorite_border,
-                          color: Colors.red,
-                          size: 20,
-                        ),
-                        onPressed: () {
-                          setState(() {
-                            _isFavorite = !_isFavorite;
-                          });
-                        },
-                      ),
-                    ),
-                  ),
                 ],
               ),
               const SizedBox(height: 4),

@@ -7,6 +7,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:iconsax/iconsax.dart';
 import 'package:intl/intl.dart';
 import 'package:readmore/readmore.dart';
+import 'package:shopping_app/checkout/checkout_screen.dart';
 import '../address/address.dart';
 import '../models/p_products.dart';
 
@@ -584,7 +585,7 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                   style: ElevatedButton.styleFrom(
                       backgroundColor: Colors.deepOrangeAccent
                   ),
-                  onPressed: () {  },
+                  onPressed: () { Navigator.push(context, MaterialPageRoute(builder: (context) => const CheckoutScreen()));  },
                   child: Text('BUY NOW', style: GoogleFonts.nunitoSans(textStyle: const TextStyle(fontSize: 15, fontWeight: FontWeight.bold, color: Colors.white))
                   ),
                 ),

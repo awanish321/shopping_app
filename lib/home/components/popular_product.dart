@@ -239,7 +239,6 @@ class PopularProducts extends StatefulWidget {
 }
 
 class _PopularProductsState extends State<PopularProducts> {
-  bool _isFavorite = false;
 
   @override
   Widget build(BuildContext context) {
@@ -312,36 +311,6 @@ class _PopularProductsState extends State<PopularProducts> {
                               height: 155.0,
                               width: double.infinity,
                               fit: BoxFit.contain,
-                            ),
-                          ),
-                          Positioned(
-                            top: 10,
-                            right: 10,
-                            child: Container(
-                              decoration: BoxDecoration(
-                                shape: BoxShape.circle,
-                                color: Colors.white,
-                                boxShadow: [
-                                  BoxShadow(
-                                    color: Colors.grey.withOpacity(0.5),
-                                    spreadRadius: 2,
-                                    blurRadius: 5,
-                                    offset: const Offset(0, 2),
-                                  ),
-                                ],
-                              ),
-                              child: IconButton(
-                                icon: Icon(
-                                  _isFavorite ? Icons.favorite : Icons.favorite_border,
-                                  color: Colors.red,
-                                  size: 20,
-                                ),
-                                onPressed: () {
-                                  setState(() {
-                                    _isFavorite = !_isFavorite;
-                                  });
-                                },
-                              ),
                             ),
                           ),
                           Positioned(
