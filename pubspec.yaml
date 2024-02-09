@@ -69,6 +69,7 @@ dependencies:
   shimmer: ^3.0.0
   awesome_card: ^1.1.7
   lottie: ^3.0.0
+  intl: ^0.18.1
 
 
 

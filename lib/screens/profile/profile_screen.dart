@@ -2,6 +2,8 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:iconsax/iconsax.dart';
+import 'package:shopping_app/home/components/coustom_bottom_nav_bar.dart';
+import 'package:shopping_app/screens/profile/widgets/profile.dart';
 import 'components/profile_menu.dart';
 import 'components/profile_pic.dart';
 
@@ -17,7 +19,9 @@ class ProfileScreen extends StatelessWidget {
 
     return Scaffold(
       appBar: AppBar(
-        leading: IconButton(icon: const Icon(Iconsax.arrow_left), onPressed: () {  },),
+        leading: IconButton(icon: const Icon(Iconsax.arrow_left), onPressed: () {
+          Navigator.push(context, MaterialPageRoute(builder: (context) => const MyBottomNavBar()));
+        },),
         title: Text("Profile",style: GoogleFonts.nunitoSans(fontWeight: FontWeight.bold), ),
       ),
       body: SingleChildScrollView(
@@ -29,7 +33,9 @@ class ProfileScreen extends StatelessWidget {
             ProfileMenu(
               text: "My Account",
               icon: "assets/icons/User Icon.svg",
-              press: () => {},
+              press: (){
+                Navigator.push(context, MaterialPageRoute(builder: (context) => const UserProfile()));
+              },
             ),
             ProfileMenu(
               text: "Notifications",

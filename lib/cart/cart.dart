@@ -7,6 +7,8 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:shopping_app/checkout/checkout_screen.dart';
 
+import '../product_detail/products.dart';
+
 class CartScreen extends StatefulWidget {
   const CartScreen({Key? key}) : super(key: key);
 
@@ -15,6 +17,7 @@ class CartScreen extends StatefulWidget {
 }
 
 class _CartScreenState extends State<CartScreen> {
+  late final SelectedProductDetails selectedProduct;
   double calculateTotal(List<DocumentSnapshot<Object?>> items) {
     double total = 0.0;
 
@@ -239,49 +242,49 @@ class _CartScreenState extends State<CartScreen> {
                       );
                     },
                   ),
-                  const Divider(thickness: 1),
-                  const SizedBox(height: 20),
-                  // Display Delivery Charge
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Text('Delivery Charge', style: GoogleFonts.nunitoSans(textStyle: const TextStyle(fontSize: 15, fontWeight: FontWeight.bold))),
-                      Text('₹125', style: GoogleFonts.nunitoSans(textStyle: const TextStyle(fontSize: 15, fontWeight: FontWeight.bold))),
-                    ],
-                  ),
-                  const SizedBox(height: 10),
-                  // Display Sub Total
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Text('Sub Total', style: GoogleFonts.nunitoSans(textStyle: const TextStyle(fontSize: 15, fontWeight: FontWeight.bold))),
-                      Text(NumberFormat.currency(locale: 'en_IN', decimalDigits: 2, symbol: '₹ ').format(calculateTotal(items)), style: GoogleFonts.nunitoSans(textStyle: const TextStyle(fontSize: 15, fontWeight: FontWeight.bold))),
-                    ],
-                  ),
-                  const SizedBox(height: 10),
-                  // Display Total
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Text('Total', style: GoogleFonts.nunitoSans(textStyle: const TextStyle(fontSize: 15, fontWeight: FontWeight.bold))),
-                      Text(NumberFormat.currency(locale: 'en_IN', decimalDigits: 2, symbol: '₹ ').format(calculateTotal(items) + 125), style: GoogleFonts.nunitoSans(textStyle: const TextStyle(fontSize: 15, fontWeight: FontWeight.bold))),
-                    ],
-                  ),
-                  const SizedBox(height: 25),
-                  SizedBox(
-                    height: 50,
-                    width: double.infinity,
-                    child: ElevatedButton(
-                      style: ElevatedButton.styleFrom(
-                        backgroundColor: const Color(0xFFE53935),
-                      ),
-                      onPressed: () {
-                        Navigator.push(context, MaterialPageRoute(builder: (context) => CheckoutScreen()));
-                      },
-                      child: Text('CHECKOUT', style: GoogleFonts.nunitoSans(textStyle: const TextStyle(fontSize: 15, fontWeight: FontWeight.bold, color: Colors.white))),
-                    ),
-                  ),
-                  const SizedBox(height: 60),
+                  // const Divider(thickness: 1),
+                  // const SizedBox(height: 20),
+                  // // Display Delivery Charge
+                  // Row(
+                  //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  //   children: [
+                  //     Text('Delivery Charge', style: GoogleFonts.nunitoSans(textStyle: const TextStyle(fontSize: 15, fontWeight: FontWeight.bold))),
+                  //     Text('₹125', style: GoogleFonts.nunitoSans(textStyle: const TextStyle(fontSize: 15, fontWeight: FontWeight.bold))),
+                  //   ],
+                  // ),
+                  // const SizedBox(height: 10),
+                  // // Display Sub Total
+                  // Row(
+                  //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  //   children: [
+                  //     Text('Sub Total', style: GoogleFonts.nunitoSans(textStyle: const TextStyle(fontSize: 15, fontWeight: FontWeight.bold))),
+                  //     Text(NumberFormat.currency(locale: 'en_IN', decimalDigits: 2, symbol: '₹ ').format(calculateTotal(items)), style: GoogleFonts.nunitoSans(textStyle: const TextStyle(fontSize: 15, fontWeight: FontWeight.bold))),
+                  //   ],
+                  // ),
+                  // const SizedBox(height: 10),
+                  // // Display Total
+                  // Row(
+                  //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  //   children: [
+                  //     Text('Total', style: GoogleFonts.nunitoSans(textStyle: const TextStyle(fontSize: 15, fontWeight: FontWeight.bold))),
+                  //     Text(NumberFormat.currency(locale: 'en_IN', decimalDigits: 2, symbol: '₹ ').format(calculateTotal(items) + 125), style: GoogleFonts.nunitoSans(textStyle: const TextStyle(fontSize: 15, fontWeight: FontWeight.bold))),
+                  //   ],
+                  // ),
+                  // const SizedBox(height: 25),
+                  // SizedBox(
+                  //   height: 50,
+                  //   width: double.infinity,
+                  //   child: ElevatedButton(
+                  //     style: ElevatedButton.styleFrom(
+                  //       backgroundColor: const Color(0xFFE53935),
+                  //     ),
+                  //     onPressed: () {
+                  //       Navigator.push(context, MaterialPageRoute(builder: (context) => CheckoutScreen(selectedProduct: selectedProduct,)));
+                  //     },
+                  //     child: Text('CHECKOUT', style: GoogleFonts.nunitoSans(textStyle: const TextStyle(fontSize: 15, fontWeight: FontWeight.bold, color: Colors.white))),
+                  //   ),
+                  // ),
+                  // const SizedBox(height: 60),
 
                 ],
               );

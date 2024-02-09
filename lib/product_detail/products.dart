@@ -11,6 +11,31 @@ import 'package:shopping_app/checkout/checkout_screen.dart';
 import '../address/address.dart';
 import '../models/p_products.dart';
 
+
+class SelectedProductDetails {
+  final String productName;
+  final String productPrice;
+  final String salePrice;
+  final double offPercentage;
+  final int quantity;
+  final String selectedColor;
+  final String selectedSize;
+  final String imageUrl; // New field for image URL
+
+  SelectedProductDetails({
+    required this.productName,
+    required this.salePrice,
+    required this.productPrice,
+    required this.offPercentage,
+    required this.quantity,
+    required this.selectedColor,
+    required this.selectedSize,
+    required this.imageUrl, // Include image URL in constructor
+  });
+}
+
+
+
 class ProductDetailsScreen extends StatefulWidget {
   final ProductModel product;
 
@@ -102,6 +127,51 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
     }
   }
 
+  void _buyNow() {
+    if (_selectedColors.isNotEmpty) {
+      String selectedSize = _selectedSizes.isNotEmpty ? _selectedSizes.first : 'No size selected';
+
+      final SelectedProductDetails selectedProduct = SelectedProductDetails(
+        productName: widget.product.productName,
+        salePrice: widget.product.salePrice,
+        productPrice: widget.product.productPrice,
+        offPercentage: calculateOfferPercentage().floorToDouble(),
+        quantity: _counter,
+        selectedColor: _selectedColors.first,
+        selectedSize: selectedSize,
+        imageUrl: widget.product.images.isNotEmpty ? widget.product.images.first : '', // Pass image URL
+      );
+
+      Navigator.push(
+        context,
+        MaterialPageRoute(
+          builder: (context) => CheckoutScreen(selectedProduct: selectedProduct),
+        ),
+      );
+    } else {
+      // Handle the case where color is not selected
+      showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return AlertDialog(
+            title: Text('Error', style: GoogleFonts.nunitoSans(fontWeight: FontWeight.bold),),
+            content: Text('Please select color before proceeding.', style: GoogleFonts.nunitoSans(fontSize: 15),),
+            actions: <Widget>[
+              TextButton(
+                onPressed: () {
+                  Navigator.of(context).pop();
+                },
+                child: Text('OK', style: GoogleFonts.nunitoSans(fontWeight: FontWeight.bold),),
+              ),
+            ],
+          );
+        },
+      );
+    }
+  }
+
+
+
 
   final PageController _pageController = PageController();
   int _currentPage = 0;
@@ -135,7 +205,7 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
     });
   }
 
-  double calculateOfferPercentage() {
+  num calculateOfferPercentage() {
     String mrpString = widget.product.productPrice.replaceAll(',', '');
     String salePriceString = widget.product.salePrice.replaceAll(',', '');
 
@@ -145,7 +215,7 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
 
       if (mrp > 0) {
         double offerPercentage = ((mrp - salePrice) / mrp) * 100;
-        return offerPercentage;
+        return offerPercentage.floor();
       } else {
         return 0.0;
       }
@@ -585,7 +655,7 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                   style: ElevatedButton.styleFrom(
                       backgroundColor: Colors.deepOrangeAccent
                   ),
-                  onPressed: () { Navigator.push(context, MaterialPageRoute(builder: (context) => const CheckoutScreen()));  },
+                  onPressed: () { _buyNow();  },
                   child: Text('BUY NOW', style: GoogleFonts.nunitoSans(textStyle: const TextStyle(fontSize: 15, fontWeight: FontWeight.bold, color: Colors.white))
                   ),
                 ),

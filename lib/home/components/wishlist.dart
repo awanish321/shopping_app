@@ -4,6 +4,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:iconsax/iconsax.dart';
+import 'package:shopping_app/home/components/coustom_bottom_nav_bar.dart';
 import 'package:shopping_app/shimmer/shimmer.dart';
 
 class WishlistScreen extends StatefulWidget {
@@ -33,9 +34,9 @@ class _WishlistScreenState extends State<WishlistScreen> {
     return Scaffold(
       // backgroundColor: const Color(0xFFF5F5F3),
       appBar: AppBar(
-        leading: IconButton(
-          icon: const Icon(Iconsax.arrow_left),
-          onPressed: () {},
+        leading: IconButton(icon: const Icon(Iconsax.arrow_left), onPressed: () {
+          Navigator.push(context, MaterialPageRoute(builder: (context)=> const MyBottomNavBar()));
+        },
         ),
         title: Text('Wishlist',
             style: GoogleFonts.nunitoSans(
@@ -58,7 +59,7 @@ class _WishlistScreenState extends State<WishlistScreen> {
               if (snapshot.data?.docs.isEmpty ?? true) {
                 return Center(
                   child: Text(
-                    'Your wishlist is empty.',
+                    '',
                     style: GoogleFonts.nunitoSans(
                       textStyle: const TextStyle(
                         fontWeight: FontWeight.bold,
